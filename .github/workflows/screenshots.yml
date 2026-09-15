@@ -28,9 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
 
       - name: Install Playwright Chromium
@@ -41,7 +40,7 @@ jobs:
       - name: Serve the production build
         run: |
           npx vite preview --port 4173 --host 127.0.0.1 &
-          npx wait-on http://127.0.0.1:4173/safeshare-json/ --timeout 60000
+          npx wait-on@7.2.0 http://127.0.0.1:4173/safeshare-json/ --timeout 60000
 
       - name: Capture screenshots (also asserts zero network activity)
         run: node scripts/screenshots.mjs
