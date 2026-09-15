@@ -1,0 +1,59 @@
+name: Screenshots
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'index.html'
+      - 'examples/**'
+      - 'scripts/screenshots.mjs'
+      - '.github/workflows/screenshots.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    name: Regenerate README screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: Serve the production build
+        run: |
+          npx vite preview --port 4173 --host 127.0.0.1 &
+          npx wait-on http://127.0.0.1:4173/safeshare-json/ --timeout 60000
+
+      - name: Capture screenshots (also asserts zero network activity)
+        run: node scripts/screenshots.mjs
+
+      - name: Commit updated screenshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/screenshots
+          if git diff --staged --quiet; then
+            echo 'Screenshots unchanged.'
+          else
+            git commit -m 'docs: regenerate screenshots [skip ci]'
+            git push
+          fi
