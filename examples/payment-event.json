@@ -1,0 +1,90 @@
+{
+  "event": "payment.captured",
+  "event_id": "evt_01HXK9ZQ8N",
+  "created_at": "2026-02-11T09:14:22Z",
+  "livemode": true,
+  "payment_id": "pay_839201",
+  "order_id": "ORD-2026-000412",
+  "customer": {
+    "id": "583921",
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "phone": "+972501234567",
+    "secondary_phone": "+971 50 987 6543",
+    "loyalty_points": 1280,
+    "marketing_opt_in": false,
+    "deleted_at": null
+  },
+  "billing_address": {
+    "street": "14 Rothschild Blvd, Apt 8",
+    "city": "Tel Aviv",
+    "postal_code": "6688101",
+    "country": "IL",
+    "ip": "192.168.1.20"
+  },
+  "merchant": {
+    "merchant_id": "mrc_77120",
+    "name": "Blue Harbour Coffee",
+    "support_email": "support@blueharbour.example.com",
+    "terminal_id": "TRM-0091"
+  },
+  "payment": {
+    "amount": 129.9,
+    "currency": "ILS",
+    "captured": true,
+    "installments": 3,
+    "method": "card",
+    "card": {
+      "cardholder_name": "JOHN SMITH",
+      "card_number": "4539578763621486",
+      "expiry": "11/28",
+      "cvv": "417",
+      "brand": "visa",
+      "last4": "1486"
+    },
+    "acquirer_reference": "9921004573310",
+    "risk_score": 0.12
+  },
+  "session": {
+    "session_id": "sess_9f21bb40",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ODM5MjEiLCJuYW1lIjoiSm9obiBTbWl0aCIsImlhdCI6MTc3MDgwMDAwMH0.qT3xW1nJ4mYb0d9c8sK2hV7uR5pL6aQfZ1oX0eN2tC8",
+    "refresh_token": "rt_9d2f7c11ab4e4f0b8c3d5e6f7a8b9c0d",
+    "client_ip": "203.0.55.18"
+  },
+  "request": {
+    "request_id": "req_5f8c1a",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnQiOiJwb3MtdGVybWluYWwifQ.Ld2Rm9xT4pQ1sV7yA0bC3nE6hJ8kM5uW",
+    "api_key": "sk_live_51H8xQ2LkJ9dPmR4tYvB",
+    "user_agent": "FortisPOS/4.8.1 (Android 13)"
+  },
+  "audit_trail": [
+    {
+      "step": "authorize",
+      "customer_id": "583921",
+      "at": "2026-02-11T09:14:19Z",
+      "ok": true
+    },
+    {
+      "step": "capture",
+      "customer_id": "583921",
+      "at": "2026-02-11T09:14:22Z",
+      "ok": true
+    },
+    {
+      "step": "receipt",
+      "customer_id": "583921",
+      "recipient_email": "john.smith@example.com",
+      "at": "2026-02-11T09:14:23Z",
+      "ok": true
+    }
+  ],
+  "related": {
+    "previous_payment": {
+      "payment_id": "pay_831744",
+      "customer_id": "583921",
+      "amount": 54.5,
+      "currency": "ILS",
+      "refunded": false
+    }
+  }
+}
